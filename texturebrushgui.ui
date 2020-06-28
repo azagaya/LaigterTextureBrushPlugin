@@ -21,7 +21,7 @@
      </property>
      <property name="icon">
       <iconset resource="icons.qrc">
-       <normaloff>:/icons/eraser-icon.png</normaloff>:/icons/eraser-icon.png</iconset>
+       <normaloff>:/eraser-icon.png</normaloff>:/eraser-icon.png</iconset>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -35,7 +35,7 @@
      </property>
      <property name="icon">
       <iconset resource="icons.qrc">
-       <normaloff>:/icons/roundBrush.png</normaloff>:/icons/roundBrush.png</iconset>
+       <normaloff>:/roundBrush.png</normaloff>:/roundBrush.png</iconset>
      </property>
      <property name="checkable">
       <bool>true</bool>

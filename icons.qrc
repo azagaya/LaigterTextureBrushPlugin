@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/eraser-icon.png</file>
-        <file>icons/roundBrush.png</file>
-        <file>icons/icon.png</file>
+        <file>eraser-icon.png</file>
+        <file>roundBrush.png</file>
+        <file>icon.png</file>
     </qresource>
 </RCC>
