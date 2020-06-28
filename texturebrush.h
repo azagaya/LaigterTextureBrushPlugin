@@ -60,7 +60,7 @@ public slots:
   void set_parallax(int p);
   void set_occlussion(int o);
   void set_diffuse(int d);
-
+  void set_scale(double s);
   void setTextures(QString path, QStringList list);
 
 private:
@@ -91,7 +91,8 @@ private:
 
   bool linesSelected = true, brushSelected = true, eraserSelected = false,
        selected = true;
-  QString m_name = tr("Texture Plugin");
+  QString m_name = tr("Texture Plugin"), current_texture_path;
+  QStringList current_texture_list;
 };
 
 #endif // TEXTUREBRUSH_H

@@ -136,3 +136,9 @@ void TextureBrushGui::on_pushButton_pressed() { texture_selector.show(); }
 void TextureBrushGui::on_sliderDiffuse_valueChanged(int value) {
   diffuse_changed(value);
 }
+
+
+void TextureBrushGui::on_scaleSpinBox_editingFinished()
+{
+    scaleChanged(ui->scaleSpinBox->value());
+}

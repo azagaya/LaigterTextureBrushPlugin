@@ -26,6 +26,7 @@ signals:
   void diffuse_changed(int diff);
   void mix_changed(int mix);
   void setTextures(QString path, QStringList textures);
+  void scaleChanged(double scale);
 
 public slots:
   void brush_sprite_updated(QImage sprite);
@@ -70,6 +71,8 @@ private slots:
   void on_pushButton_pressed();
 
   void on_sliderDiffuse_valueChanged(int value);
+
+  void on_scaleSpinBox_editingFinished();
 
 private:
   Ui::TextureBrushGui *ui;

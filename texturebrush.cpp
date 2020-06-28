@@ -468,12 +468,15 @@ QWidget *TextureBrush::loadGUI(QWidget *parent) {
   connect(gui, SIGNAL(mix_changed(int)), this, SLOT(set_mix(int)));
   connect(gui, SIGNAL(setTextures(QString, QStringList)), this,
           SLOT(setTextures(QString, QStringList)));
+  connect(gui, SIGNAL(scaleChanged(double)), this, SLOT(set_scale(double)));
   updateBrushSprite();
   return gui;
 }
 
 void TextureBrush::setTextures(QString path, QStringList list) {
 
+  current_texture_path = path;
+  current_texture_list = list;
   gui->set_normal_enabled(false);
   gui->set_diffuse_enabled(false);
   gui->set_parallax_enabled(false);
@@ -614,4 +617,9 @@ QPoint TextureBrush::WorldToLocal(QPoint world) {
   local.setY(-local.y());
 
   return local;
+}
+
+void TextureBrush::set_scale(double s){
+    scale = s;
+    setTextures(current_texture_path, current_texture_list);
 }
