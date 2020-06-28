@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>HSOPBrushGui</class>
- <widget class="QWidget" name="HSOPBrushGui">
+ <class>TextureBrushGui</class>
+ <widget class="QWidget" name="TextureBrushGui">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>218</width>
-    <height>478</height>
+    <width>313</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,13 +59,13 @@
    <item row="4" column="2" colspan="4">
     <widget class="QSlider" name="hardnessSlider">
      <property name="minimum">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="maximum">
       <number>100</number>
      </property>
      <property name="value">
-      <number>1</number>
+      <number>50</number>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -79,25 +79,25 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="QCheckBox" name="checkBoxNormal">
+       <widget class="QCheckBox" name="checkBoxDiffuse">
         <property name="text">
-         <string>Height</string>
+         <string>Diffuse</string>
         </property>
         <property name="checked">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="sliderNormal">
+       <widget class="QSlider" name="sliderDiffuse">
         <property name="minimum">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
          <number>255</number>
         </property>
         <property name="value">
-         <number>128</number>
+         <number>255</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -105,16 +105,19 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QCheckBox" name="checkBoxSpecular">
+       <widget class="QCheckBox" name="checkBoxNormal">
         <property name="text">
-         <string>Specular</string>
+         <string>Normal</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="sliderSpecular">
+       <widget class="QSlider" name="sliderNormal">
         <property name="minimum">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
          <number>255</number>
@@ -128,22 +131,22 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QCheckBox" name="checkBoxOcclussion">
+       <widget class="QCheckBox" name="checkBoxSpecular">
         <property name="text">
-         <string>Occlussion</string>
+         <string>Specular</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSlider" name="sliderOcclussion">
+       <widget class="QSlider" name="sliderSpecular">
         <property name="minimum">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
          <number>255</number>
         </property>
         <property name="value">
-         <number>1</number>
+         <number>255</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -151,22 +154,45 @@
        </widget>
       </item>
       <item row="3" column="0">
+       <widget class="QCheckBox" name="checkBoxOcclussion">
+        <property name="text">
+         <string>Occlussion</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSlider" name="sliderOcclussion">
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>255</number>
+        </property>
+        <property name="value">
+         <number>255</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
        <widget class="QCheckBox" name="checkBoxParallax">
         <property name="text">
          <string>Parallax</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="4" column="1">
        <widget class="QSlider" name="sliderParallax">
         <property name="minimum">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
          <number>255</number>
         </property>
         <property name="value">
-         <number>128</number>
+         <number>255</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -185,6 +211,12 @@
    </item>
    <item row="0" column="0" colspan="6">
     <widget class="QLabel" name="imageLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="minimumSize">
       <size>
        <width>200</width>
@@ -193,12 +225,15 @@
      </property>
      <property name="maximumSize">
       <size>
-       <width>200</width>
-       <height>200</height>
+       <width>10000</width>
+       <height>10000</height>
       </size>
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -248,16 +283,9 @@
     </spacer>
    </item>
    <item row="1" column="1">
-    <widget class="QPushButton" name="buttonPeak">
+    <widget class="QPushButton" name="pushButton">
      <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="icons.qrc">
-       <normaloff>:/icons/peakBrush.png</normaloff>:/icons/peakBrush.png</iconset>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
+      <string>Texture</string>
      </property>
     </widget>
    </item>

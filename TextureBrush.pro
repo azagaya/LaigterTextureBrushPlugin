@@ -1,9 +1,9 @@
 TEMPLATE = lib
-DEFINES += HSPOBRUSH_LIBRARY
+DEFINES += TEXTUREBRUSH_LIBRARY
 CONFIG       += plugin
-QT           += widgets
+QT           += widgets network
 
-TARGET = hspobrush
+TARGET = texturebrush
 
 CONFIG += c++11
 
@@ -27,24 +27,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    hsopbrushgui.cpp \
-    hspobrush.cpp \
     $$LAIGTER_SRC/src/image_processor.cpp\
     $$LAIGTER_SRC/src/light_source.cpp\
     $$LAIGTER_SRC/src/sprite.cpp\
-    $$LAIGTER_SRC//src/texture.cpp
+    $$LAIGTER_SRC/src/texture.cpp \
+    $$LAIGTER_SRC/thirdparty/zip.c \
+    downloadmanager.cpp \
+    texture_selector.cpp \
+    texturebrush.cpp \
+    texturebrushgui.cpp
     $$LAIGTER_SRC/src/brush_interface.h
 
 HEADERS += \
-  hsopbrushgui.h \
-    hspobrush.h \
     $$LAIGTER_SRC/src/image_processor.h \
     $$LAIGTER_SRC/src/light_source.h\
     $$LAIGTER_SRC/src/sprite.h\
-    $$LAIGTER_SRC/src/texture.h
+    $$LAIGTER_SRC/src/texture.h \
+    $$LAIGTER_SRC/thirdparty/zip.h \
+    $$LAIGTER_SRC/thirdparty/miniz.h \
+    downloadmanager.h \
+    texture_selector.h \
+    texturebrush.h \
+    texturebrushgui.h
 
 FORMS += \
-  hsopbrushgui.ui
+    texture_selector.ui \
+    texturebrushgui.ui
 
 isEmpty(PREFIX){
 unix{

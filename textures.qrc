@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Textures/MetalPlates001_2K_Color.jpg</file>
+        <file>Textures/MetalPlates001_2K_Displacement.jpg</file>
+        <file>Textures/MetalPlates001_2K_Roughness.jpg</file>
+        <file>Textures/MetalPlates001_2K_Normal.jpg</file>
+        <file>Textures/MetalPlates001_2K_Metalness.jpg</file>
+    </qresource>
+</RCC>
