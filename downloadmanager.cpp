@@ -17,7 +17,8 @@ void DownloadManager::doDownload(const QUrl &url) {
 }
 
 void DownloadManager::updateProgress(qint64 rcv, qint64 total) {
-  progress(100 * rcv / total);
+  if (total > 0)
+    progress(100 * rcv / total);
 }
 
 QString DownloadManager::saveFileName(const QUrl &url) {
@@ -77,6 +78,11 @@ void DownloadManager::downloadFinished(QNetworkReply *reply) {
   if (reply->error()) {
     fprintf(stderr, "Download of %s failed: %s\n", url.toEncoded().constData(),
             qPrintable(reply->errorString()));
+    if (download_type == DownloadType::PREVIEW) {
+      next_asset++;
+      if (next_asset != assets.end())
+        doDownload(get_preview_url(next_asset));
+    }
   } else {
     if (isHttpRedirect(reply)) {
       fputs("Request was redirected.\n", stderr);
@@ -98,7 +104,8 @@ void DownloadManager::downloadFinished(QNetworkReply *reply) {
         preview = QImage::fromData(reply->readAll());
         preview_ready(preview, next_asset.key());
         next_asset++;
-        doDownload(get_preview_url(next_asset));
+        if (next_asset != assets.end())
+          doDownload(get_preview_url(next_asset));
         break;
       case DownloadType::PBR:
         QString filename = saveFileName(url);

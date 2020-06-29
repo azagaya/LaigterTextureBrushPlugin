@@ -60,8 +60,6 @@ unix{
 }
 win32{
  PREFIX = $$system(echo %APPDATA%)/laigter/plugins
- LIBS += C:\Qt\Tools\OpenSSL\Win_x64\bin\libcrypto-1_1-x64.dll
- LIBS += C:\Qt\Tools\OpenSSL\Win_x64\bin\libssl-1_1-x64.dll
 }
 }
 

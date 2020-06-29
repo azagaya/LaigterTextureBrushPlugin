@@ -493,7 +493,7 @@ void TextureBrush::setTextures(QString path, QStringList list) {
     } else if (texture.contains("Occlusion")) {
       m_occlussion_brush.setTextureImage(image);
       gui->set_occlusion_enabled(true);
-    } else if (texture.contains("Metallness")) {
+    } else if (texture.contains("Metalness")) {
       m_specular_brush.setTextureImage(image);
       gui->set_specular_enabled(true);
     } else if (texture.contains("Displacement")) {
@@ -619,7 +619,7 @@ QPoint TextureBrush::WorldToLocal(QPoint world) {
   return local;
 }
 
-void TextureBrush::set_scale(double s){
-    scale = s;
-    setTextures(current_texture_path, current_texture_list);
+void TextureBrush::set_scale(double s) {
+  scale = s;
+  setTextures(current_texture_path, current_texture_list);
 }
