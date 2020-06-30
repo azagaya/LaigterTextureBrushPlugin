@@ -1,5 +1,6 @@
 #include "texturebrushgui.h"
 #include "ui_texturebrushgui.h"
+#include <QDesktopServices>
 #include <QPainter>
 
 TextureBrushGui::TextureBrushGui(QWidget *parent)
@@ -7,6 +8,15 @@ TextureBrushGui::TextureBrushGui(QWidget *parent)
   ui->setupUi(this);
   connect(&texture_selector, SIGNAL(selectTexture(QString, QIcon)), this,
           SLOT(textureSelected(QString, QIcon)));
+
+  ui->label_5->setText(
+      "Textures from <a href=\"https://cc0textures.com/\">CC0Textures</a>");
+  ui->label_5->setTextFormat(Qt::RichText);
+  ui->label_5->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+  connect(ui->label_5, &QLabel::linkActivated, [=](QString link) {
+    qDebug() << link << QDesktopServices::openUrl(QUrl(link));
+  });
 }
 
 TextureBrushGui::~TextureBrushGui() { delete ui; }
@@ -137,8 +147,6 @@ void TextureBrushGui::on_sliderDiffuse_valueChanged(int value) {
   diffuse_changed(value);
 }
 
-
-void TextureBrushGui::on_scaleSpinBox_editingFinished()
-{
-    scaleChanged(ui->scaleSpinBox->value());
+void TextureBrushGui::on_scaleSpinBox_editingFinished() {
+  scaleChanged(ui->scaleSpinBox->value());
 }
