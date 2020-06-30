@@ -28,6 +28,7 @@ private slots:
   void new_preview(QImage preview, QString name);
   void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
   void textureReady(QString path);
+  void on_pushButton_clicked();
 };
 
 #endif // TEXTURE_SELECTOR_H

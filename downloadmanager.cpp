@@ -5,6 +5,13 @@ DownloadManager::DownloadManager() {
   connect(this, SIGNAL(ready_for_next()), &readyLoop, SLOT(quit()));
 }
 
+void DownloadManager::stop() {
+  if (!finished) {
+    cancel = true;
+    readyLoop.exec();
+  }
+}
+
 void DownloadManager::doDownload(const QUrl &url) {
   QNetworkRequest request(url);
   QNetworkReply *reply = manager.get(request);
@@ -13,6 +20,7 @@ void DownloadManager::doDownload(const QUrl &url) {
 #endif
   connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this,
           SLOT(updateProgress(qint64, qint64)));
+  finished = false;
   currentDownloads.append(reply);
 }
 
@@ -75,13 +83,18 @@ void DownloadManager::sslErrors(const QList<QSslError> &sslErrors) {
 
 void DownloadManager::downloadFinished(QNetworkReply *reply) {
   QUrl url = reply->url();
-  if (reply->error()) {
+  if (cancel) {
+    cancel = false;
+  } else if (reply->error()) {
     fprintf(stderr, "Download of %s failed: %s\n", url.toEncoded().constData(),
             qPrintable(reply->errorString()));
     if (download_type == DownloadType::PREVIEW) {
       next_asset++;
-      if (next_asset != assets.end())
+      if (next_asset != assets.end()) {
         doDownload(get_preview_url(next_asset));
+      } else {
+        finished = true;
+      }
     }
   } else {
     if (isHttpRedirect(reply)) {
@@ -104,8 +117,11 @@ void DownloadManager::downloadFinished(QNetworkReply *reply) {
         preview = QImage::fromData(reply->readAll());
         preview_ready(preview, next_asset.key());
         next_asset++;
-        if (next_asset != assets.end())
+        if (next_asset != assets.end()) {
           doDownload(get_preview_url(next_asset));
+        } else {
+          finished = true;
+        }
         break;
       case DownloadType::PBR:
         QString filename = saveFileName(url);

@@ -86,6 +86,7 @@ public slots:
   QUrl get_texture_url(QString name);
   QString get_texture(QString name);
   void updateProgress(qint64 rcv, qint64 total);
+  void stop();
 
 private:
   QString textures_path =
@@ -95,6 +96,6 @@ private:
   QJsonObject assets;
   QStringList assets_names;
   QJsonObject::iterator next_asset;
-  bool finished = false;
+  bool finished = false, cancel = false;
   QEventLoop readyLoop;
 };

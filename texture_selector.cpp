@@ -66,3 +66,13 @@ void TextureSelector::textureReady(QString path) {
   selectTexture(extracted_path, ui->listWidget->currentItem()->icon());
   this->hide();
 }
+
+void TextureSelector::on_pushButton_clicked() {
+  download_manager.stop();
+  ui->listWidget->clear();
+  QString q = ui->lineEdit->text().replace(" ", "+");
+  download_manager.download_type = DownloadType::JSON;
+  download_manager.doDownload(
+      QUrl("https://cc0textures.com/api/v1/full_json?q=" + q +
+           "&method=&type=PhotoTexturePBR&sort=Latest"));
+}
