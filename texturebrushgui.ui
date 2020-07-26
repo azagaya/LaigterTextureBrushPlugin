@@ -20,7 +20,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="eraser-icon"/>
+      <iconset theme="eraser-icon">
+       <normaloff>.</normaloff>.</iconset>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -313,7 +314,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="brush-icon"/>
+      <iconset theme="brush-icon">
+       <normaloff>.</normaloff>.</iconset>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -323,10 +325,11 @@
    <item row="1" column="1">
     <widget class="QPushButton" name="pushButton">
      <property name="text">
-      <string>Texture</string>
+      <string/>
      </property>
      <property name="icon">
-      <iconset theme="brush-texture"/>
+      <iconset theme="brush-texture">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </item>
