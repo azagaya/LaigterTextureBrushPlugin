@@ -567,7 +567,7 @@ void TextureBrush::set_brushSelected(bool b) {
     set_selected(b);
 }
 
-QIcon TextureBrush::getIcon() { return QIcon(QPixmap(":/icon.png")); }
+QString TextureBrush::getIcon() { return "brush-texture"; }
 
 QString TextureBrush::getName() { return m_name; }
 
