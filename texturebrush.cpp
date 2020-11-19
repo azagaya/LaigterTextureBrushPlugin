@@ -456,7 +456,7 @@ QWidget *TextureBrush::loadGUI(QWidget *parent) {
   gui = new TextureBrushGui(parent);
   connect(gui, SIGNAL(selected_changed(bool)), this,
           SLOT(set_lineSelected(bool)));
-  connect(gui, SIGNAL(size_changed(int)), this, SLOT(set_radius(int)));
+  connect(gui, SIGNAL(size_changed(int)), this, SLOT(set_base_radius(int)));
   connect(gui, SIGNAL(hardness_changed(int)), this, SLOT(set_hardness(int)));
 
   connect(gui, SIGNAL(height_changed(int)), this, SLOT(set_height(int)));
@@ -520,6 +520,11 @@ void TextureBrush::set_specular(int s) { spec = s; }
 void TextureBrush::set_occlussion(int o) { occ = o; }
 
 void TextureBrush::set_diffuse(int d) { diff = d; }
+
+void TextureBrush::set_base_radius(int r) {
+  base_radius = r;
+  set_radius(base_radius);
+}
 
 void TextureBrush::set_radius(int r) {
   radius = r;
@@ -623,4 +628,11 @@ QPoint TextureBrush::WorldToLocal(QPoint world) {
 void TextureBrush::set_scale(double s) {
   scale = s;
   setTextures(current_texture_path, current_texture_list);
+}
+
+void TextureBrush::setPressure(float pressure) {
+  this->pressure = pressure;
+  float d = 0.2;
+  int new_radius = base_radius * ((1 - 2 * d) * pressure + d);
+  set_radius(new_radius);
 }
