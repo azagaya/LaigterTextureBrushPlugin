@@ -276,15 +276,27 @@ void TextureBrush::mouseMove(const QPoint &oldPos, const QPoint &newPos) {
   QRect r(QPoint(xmin - radius, ymin - radius),
           QPoint(xmax + radius, ymax + radius));
 
+  //  if (gui->get_specular_enabled())
+  //    QtConcurrent::run(m_processor, &ImageProcessor::calculate_specular);
+  //  if (gui->get_parallax_enabled())
+  //    QtConcurrent::run(m_processor, &ImageProcessor::calculate_parallax);
+  //  if (gui->get_occlussion_enabled())
+  //    QtConcurrent::run(m_processor, &ImageProcessor::calculate_occlusion);
+  //  if (gui->get_normal_enabled())
+  //    QtConcurrent::run(m_processor, &ImageProcessor::generate_normal_map,
+  //    false,
+  //                      false, false, r);
+
   if (gui->get_specular_enabled())
-    QtConcurrent::run(m_processor, &ImageProcessor::calculate_specular);
+    m_processor->specular_counter = 1;
   if (gui->get_parallax_enabled())
-    QtConcurrent::run(m_processor, &ImageProcessor::calculate_parallax);
+    m_processor->parallax_counter = 1;
   if (gui->get_occlussion_enabled())
-    QtConcurrent::run(m_processor, &ImageProcessor::calculate_occlusion);
-  if (gui->get_normal_enabled())
-    QtConcurrent::run(m_processor, &ImageProcessor::generate_normal_map, false,
-                      false, false, r);
+    m_processor->occlussion_counter = 1;
+  if (gui->get_normal_enabled()) {
+    m_processor->normal_counter = 1;
+    m_processor->rect_requested = m_processor->rect_requested.united(r);
+  }
 }
 
 void TextureBrush::mousePress(const QPoint &pos) {
@@ -416,26 +428,26 @@ void TextureBrush::mousePress(const QPoint &pos) {
     m_processor->set_normal_overlay(
         updateOverlay(xmin, xmax, ymin, ymax, m_processor->get_normal_overlay(),
                       oldHeight, auxHeight, height / 255.0));
-    QtConcurrent::run(m_processor, &ImageProcessor::generate_normal_map, false,
-                      false, false, r);
+    m_processor->normal_counter = 1;
+    m_processor->rect_requested = m_processor->rect_requested.united(r);
   }
   if (gui->get_parallax_enabled()) {
     m_processor->set_parallax_overlay(updateOverlay(
         xmin, xmax, ymin, ymax, m_processor->get_parallax_overlay(),
         oldParallax, auxParallax, parallax / 255.0));
-    QtConcurrent::run(m_processor, &ImageProcessor::calculate_parallax);
+    m_processor->parallax_counter = 1;
   }
   if (gui->get_specular_enabled()) {
     m_processor->set_specular_overlay(updateOverlay(
         xmin, xmax, ymin, ymax, m_processor->get_specular_overlay(),
         oldSpecular, auxSpecular, spec / 255.0));
-    QtConcurrent::run(m_processor, &ImageProcessor::calculate_specular);
+    m_processor->specular_counter = 1;
   }
   if (gui->get_occlussion_enabled()) {
     m_processor->set_occlussion_overlay(updateOverlay(
         xmin, xmax, ymin, ymax, m_processor->get_occlusion_overlay(),
         oldOcclussion, auxOcclussion, occ / 255.0));
-    QtConcurrent::run(m_processor, &ImageProcessor::calculate_occlusion);
+    m_processor->occlussion_counter = 1;
   }
   if (gui->get_diffuse_enabled()) {
     m_processor->set_texture_overlay(updateOverlay(
