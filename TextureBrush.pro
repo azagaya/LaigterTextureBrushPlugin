@@ -11,7 +11,6 @@ isEmpty(LAIGTER_SRC){
   LAIGTER_SRC=../laigter
 }
 
-
 INCLUDEPATH  += $$LAIGTER_SRC/
 INCLUDEPATH  += $$LAIGTER_SRC/src/
 
